@@ -6,6 +6,7 @@ import Menu from './Components/Menu';
 import Signup from './Pages/Signup';
 import Login from './Pages/Login';
 import DetalleNoticia from './Components/DetalleNoticia';
+import List from './Pages/List';
 
 function App() {
   return (   
@@ -18,7 +19,9 @@ function App() {
     <Route path= "/" exact element={<Inicio/>}/>
     <Route path= "/noticias/:id" exact element={<DetalleNoticia/>}/>  
     <Route path= "/signup" exact element={<Signup/>}/>
-    <Route path= "/login" exact element={<Login/>}/>     
+    <Route path= "/login" exact element={<Login/>}/>  
+    <Route path= "/list" exact element={<List/>}/>  
+       
     
     </Routes>  
     </Router>

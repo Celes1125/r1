@@ -8,6 +8,8 @@ function Menu(){
             <li> <Link to="/">Inicio</Link></li>
             <li> <Link to="/signup">Sign up</Link></li>
             <li> <Link to="/login">Log in</Link></li>
+            <li> <Link to="/list">List</Link></li>
+            
         </ul>   
     )
 };
