@@ -5,6 +5,13 @@ function List (props) {
 
     const [lista, setLista] = useState("") 
 
+    useEffect (
+        ()=>{
+            console.log("cambió")
+         },
+        [lista]
+    )
+
     
     return (
         

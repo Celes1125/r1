@@ -31,7 +31,7 @@ function Inicio (props) {
         return (
 
             <div> 
-                {noticias.map(n=><Noticia pasamano={n}/>)}
+                {noticias.map(n=><Noticia pasamano={n} />)}
             </div>       
         ) 
     }  

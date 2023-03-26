@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react"; 
 import { useParams } from "react-router-dom";
+import Noticia from "../Components/Noticia";
+
 
 function DetalleNoticia(props){ 
     const {id} = useParams();
     const [loading, setLoading] = useState(true);
     const [noticia, setNoticia] = useState ({});
-
+    
     useEffect(
         ()=>{
         fetch("https://jsonplaceholder.typicode.com/posts/"+id)
@@ -27,10 +29,7 @@ function DetalleNoticia(props){
     }else{
         return (
             <div>
-                <div>Título: {noticia.title} </div>
-                <div>Descripción: {noticia.body} </div>
-                <div>id: {noticia.id} </div>
-                <div>................................................................... </div>
+                <Noticia pasamano={noticia} verDetalle={false}/>
             </div>
         )
     }
