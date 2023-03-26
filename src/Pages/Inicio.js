@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import Noticia from "../Components/Noticia";
+import firebase from "../Config/firebase";
 
 
 
 function Inicio (props) {    
 
     const [noticias, setNoticias] = useState([]);
-    const [loading, setLoading] = useState (true);    
+    const [loading, setLoading] = useState (true);     
+    console.log("database: ", firebase.db)
+
 
     useEffect (
         ()=>{
