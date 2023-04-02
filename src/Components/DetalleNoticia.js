@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"; 
 import { useParams } from "react-router-dom";
 import Noticia from "../Components/Noticia";
-
+import { getNoticiaById } from "../Services/ItemsServices";
 
 function DetalleNoticia(props){ 
     const {id} = useParams();
@@ -10,12 +10,11 @@ function DetalleNoticia(props){
     
     useEffect(
         ()=>{
-        fetch("https://jsonplaceholder.typicode.com/posts/"+id)
-        .then(res=>res.json())
-        .then(data=>{
-            console.log("data", data);
+        getNoticiaById(id)
+        .then(response=>{
+            console.log("response", response);
             setLoading(false);
-            setNoticia(data)           
+            setNoticia(response.data)           
 
         })
         },

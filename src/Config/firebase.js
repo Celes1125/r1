@@ -1,31 +1,28 @@
 
 import { initializeApp } from "firebase/app";
-import { getFirestore } from 'firebase/firestore/lite';
-
-function firebase () {
-  const firebaseConfig = {
-
-    apiKey: "AIzaSyAUWW_OvQrHfoAdTpFC7WWTjFY5LF3pyjU",
-  
-    authDomain: "reactprojects-r1.firebaseapp.com",
-  
-    projectId: "reactprojects-r1",
-  
-    storageBucket: "reactprojects-r1.appspot.com",
-  
-    messagingSenderId: "89006717103",
-  
-    appId: "1:89006717103:web:d97fc0373b3e8f5dc6fc5a"
-  
-  }     
-
-  
-  const app = initializeApp(firebaseConfig);
-  const db = firebase.getFirestore(app)
-
-}
+import {getAuth} from 'firebase/auth';
+import {getStorage, RecaptchaVerifier, uploadBytes, getDownloadURL, getBytes} from 'firebase/storage';
+import {getFirestore, collection,addDoc, getDocs,doc,getDoc, query, where, setDoc, deleteDoc} from 'firebase/firestore';
 
 
-    
+const firebaseConfig = {
+    apiKey: "AIzaSyAHx5iA17JKk-NOiIhNsD5gEEO3HwJTFIg",
 
-export default firebase;
+    authDomain: "react1-25798.firebaseapp.com",
+  
+    projectId: "react1-25798",
+  
+    storageBucket: "react1-25798.appspot.com",
+  
+    messagingSenderId: "241811048948",
+  
+    appId: "1:241811048948:web:b63b9b7668632dafbbd1a1" 
+
+};
+
+
+export const app = initializeApp(firebaseConfig);
+export const auth = getAuth(app);
+export const db = getFirestore(app);
+export const storage = getStorage(app);
+

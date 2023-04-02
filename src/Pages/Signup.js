@@ -1,14 +1,23 @@
 import React, {useState} from "react";
+import { auth } from "../Config/firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 function Signup (){
 
     const [form, setForm] = useState({name:"", surname:"", email: "", password:""})
 
-    const handleSubmit = (event)=>{
+    const handleSubmit = async (event)=>{
         console.log("Objeto form: ", form)    
         event.preventDefault() //evita la recarga natural del evento que refresca la página, corta con la recarga del submit. Esto es un método dentro del parámetro event.
-    }
-    
+        try {
+            const user = await createUserWithEmailAndPassword(auth, form.email, form.password);
+            console.log(user)
+        }catch (error){
+            console.log("error: ", error);
+            alert(error.message)
+
+        }
+    }      
     const handleChange = (event)=>{  
         const name = event.target.name;
         const value = event.target.value;
@@ -38,12 +47,9 @@ function Signup (){
                     <button type="submit">Signup</button>
                     </div>
                 
-                </form>
-
-                
+                </form>               
 
             </div>
         )
 }
-
 export default Signup;

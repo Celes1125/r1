@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Noticia from "../Components/Noticia";
-import firebase from "../Config/firebase";
+import {db} from '../Config/firebase';
+import {getAllNoticias} from '../Services/ItemsServices'
+
+
 
 
 
@@ -8,15 +11,14 @@ function Inicio (props) {
 
     const [noticias, setNoticias] = useState([]);
     const [loading, setLoading] = useState (true);     
-    console.log("database: ", firebase.db)
+    console.log ("firebase db: ", db);
 
 
     useEffect (
         ()=>{
-         fetch("https://jsonplaceholder.typicode.com/posts")
-        .then(res=>res.json())
-        .then(data=>{console.log("data", data)
-        setNoticias(data)
+         getAllNoticias()
+        .then(response=>{console.log("response", response)
+        setNoticias(response.data)// ojo que axios devuelve un response con la propiedad data, y esa prop data es la que efectivamente contiene el array
         setLoading(false)
         })},
         []
@@ -34,7 +36,12 @@ function Inicio (props) {
         return (
 
             <div> 
+                
+               
                 {noticias.map(n=><Noticia pasamano={n} />)}
+
+                
+                
             </div>       
         ) 
     }  
