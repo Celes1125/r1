@@ -1,6 +1,9 @@
 import React, {useState} from "react";
-import { auth } from "../Config/firebase";
+import { auth, db, collectionUsers} from "../Config/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { addDoc, collection, getDocs } from "firebase/firestore";
+
+
 
 function Signup (){
 
@@ -10,8 +13,21 @@ function Signup (){
         console.log("Objeto form: ", form)    
         event.preventDefault() //evita la recarga natural del evento que refresca la página, corta con la recarga del submit. Esto es un método dentro del parámetro event.
         try {
-            const user = await createUserWithEmailAndPassword(auth, form.email, form.password);
-            console.log(user)
+            const responseUser = await createUserWithEmailAndPassword(auth, form.email, form.password);
+            console.log(responseUser);
+            
+            const responseDocument = await addDoc(collection(db,"users"), {
+                name: form.name,
+                surname: form.surname,
+                uid: responseUser.user.uid
+              });             
+             
+            /*responseDocument.forEach(
+               doc=>{console.log("documentos: ", doc.data())}
+            );*/
+                
+            console.log("responseDocument: ", responseDocument)   
+            
         }catch (error){
             console.log("error: ", error);
             alert(error.message)
