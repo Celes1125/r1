@@ -12,6 +12,7 @@ function Login (){
         try {
             const responseUser = await signInWithEmailAndPassword(auth, logForm.email, logForm.password);
             console.log("responseUser: ", responseUser)
+            alert("Bienvenid@")
         }catch(error){
             console.log("error: ", error);
             alert(error.message)
