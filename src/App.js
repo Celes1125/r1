@@ -9,9 +9,9 @@ const auth = getAuth(firebaseApp);
 function App() {
   const [globalUser, setGlobalUser] = useState(null);
 
-  onAuthStateChanged(auth, (firebaseUser)=>{
-    if(firebaseUser){
-      setGlobalUser(firebaseUser)
+  onAuthStateChanged(auth, (user)=>{
+    if(user){
+      setGlobalUser(user)
     }else{
       setGlobalUser(null)
     }
@@ -19,7 +19,7 @@ function App() {
   })
 
   return (   
-    <>{globalUser ? <Home /> : <Login />}</> 
+    <>{globalUser ? <Home globalUserEmail={globalUser.email} /> : <Login />}</> 
     
   );
 }

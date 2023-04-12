@@ -1,9 +1,13 @@
 import {Container, Stack, Form, Button} from 'react-bootstrap';
 import React, {useState} from 'react'; 
 import firebaseApp from '../Config/firebase';
-import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth";
+import {getAuth,
+  createUserWithEmailAndPassword,
+   signInWithEmailAndPassword,
+   signInWithRedirect, 
+   GoogleAuthProvider} from "firebase/auth";
 const auth = getAuth(firebaseApp);
-
+const googleProvider= new GoogleAuthProvider();
 
 const Login = ()=>{
     const [isRegistered, setIsRegistered] = useState(false);
@@ -44,8 +48,8 @@ const Login = ()=>{
             </Button>
     </Form>
 
-    <Button variant="primary" type="submit">
-        Login with Google
+    <Button variant="primary" type="submit" onClick={()=>signInWithRedirect(auth, googleProvider)}>
+        Iniciar sesión con Google
       </Button>
       <Button variant="secondary" type="submit" onClick={()=>setIsRegistered(!isRegistered)}>
         {isRegistered? "¿No tienes cuenta? Regístrate" : "¿Ya tienes cuenta? Inicia sesión"}
