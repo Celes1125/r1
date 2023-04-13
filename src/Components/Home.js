@@ -56,8 +56,11 @@ function Home (globalUserEmail){
             <Button onClick={()=>{signOut(auth)}}>
                 Cerrar sesión
             </Button>
-            
-            <AddTask />  
+            {tasks?
+            <AddTask globalUserEmail={globalUserEmail} setTasks={setTasks} tasks={tasks} /> 
+            :null
+            }
+             
 
             {tasks? <TaskList globalUserEmail={globalUserEmail} setTasks={setTasks} tasks={tasks} /> 
                     :null
