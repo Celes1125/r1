@@ -3,7 +3,7 @@ import React from "react";
 const AddTask = ()=>{
     return (
         <div>
-        Agregar tareas
+        --------------Agregar tareas-----------------
     </div>
 
     )

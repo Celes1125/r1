@@ -1,19 +1,37 @@
+
 import React from "react";
 import { Container, Stack, Row, Col, Button } from "react-bootstrap";
+import firebaseApp from "../Config/firebase";
+import { getFirestore, doc, updateDoc } from "firebase/firestore";
+const firestore = getFirestore(firebaseApp);
 
-const TaskList = ({taskArray})=>{
+const TaskList = ({tasks, setTasks, globalUserEmail})=>{
+
+    async function deleteTask (tIdtoDelete){
+        //generar el nuevo array, sin el elemento a eliminar
+        const newTasks = tasks.filter((t)=> t.id !== tIdtoDelete);
+        //actualizar la base de datos
+        const docRef = doc(firestore, `usersDocs/${globalUserEmail}`);
+        updateDoc(docRef, {tasks: [...newTasks]});  
+        //actualizar el estado correspondiente
+        setTasks(newTasks);
+
+
+    }
+
+    console.log("MAIL EN TASKLIST: ", globalUserEmail);
     return (
         <Container>
             <Stack>
-                {taskArray.map(
-                    (t)=>{
+                {tasks.map(
+                    (task)=>{
                         return (
                             <>
                             <hr/>
-                            <Row key={t.id}>
-                                <Col >{t.description}</Col>
+                            <Row key={task.id}>
+                                <Col >{task.description}</Col>
                                 <Col><Button>Ver</Button></Col>
-                                <Col><Button>Eliminar</Button></Col>
+                                <Col><Button onClick={()=>deleteTask(task.id)}>Eliminar</Button></Col>
                             </Row>
                             <hr/>                            
                             </>

@@ -20,6 +20,8 @@ const firebaseConfig = {
 
   export default firebaseApp;
 
+  //using firebase account celeste.colautti.it@gmail.com
+
 
 
 

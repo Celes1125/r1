@@ -4,15 +4,17 @@ import firebaseApp from "../Config/firebase";
 import { getAuth, signOut } from "firebase/auth";
 import AddTask from "./AddTask";
 import TaskList from "./TaskList";
-import {getFirestore, doc, getDoc, setDoc} from "firebase/firestore";
-import { useEffect, useState } from "react";
+import {getFirestore, doc, getDoc, setDoc, updateDoc} from "firebase/firestore";
+import React, { useEffect, useState } from "react"; 
 const auth = getAuth(firebaseApp);
 const firestore = getFirestore(firebaseApp);
 
 
 function Home (globalUserEmail){
 
-    const [tasks, setTasks] = useState([]);
+    console.log("MAIL EN HOME: ", globalUserEmail);
+
+    const [tasks, setTasks] = useState(null);
     
     const fakeData = [
         {id: 1, description: "tarea falsa 1", url: "https://picsum.photos/420"},
@@ -56,10 +58,10 @@ function Home (globalUserEmail){
             </Button>
             
             <AddTask />  
-            {tasks? 
-                <TaskList taskArray={tasks}/> 
-                :null
-            }
+
+            {tasks? <TaskList globalUserEmail={globalUserEmail} setTasks={setTasks} tasks={tasks} /> 
+                    :null
+                    }
                      
         </Container>   
     )
