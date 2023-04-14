@@ -10,21 +10,21 @@ const auth = getAuth(firebaseApp);
 const firestore = getFirestore(firebaseApp);
 
 
-function Home (globalUserEmail){
+const Home = ({globalUserEmail})=>{
 
     console.log("MAIL EN HOME: ", globalUserEmail);
 
     const [tasks, setTasks] = useState(null);
     
     const fakeData = [
-        {id: 1, description: "tarea falsa 1", url: "https://picsum.photos/420"},
-        {id: 2, description: "tarea falsa 2", url: "https://picsum.photos/420"},
-        {id: 3, description: "tarea falsa 3", url: "https://picsum.photos/420"}
+        {id: 1, itemId: 1, description: "tarea falsa 1", url: "https://picsum.photos/420"},
+        {id: 2, itemId: 2, description: "tarea falsa 2", url: "https://picsum.photos/420"},
+        {id: 3, itemId: 3, description: "tarea falsa 3", url: "https://picsum.photos/420"}
     ]
 
-    async function searchOrCreateDocs (documentId) {
+    async function searchOrCreateDocs (idDocumento) {
         //crear la referencia al documento
-        const docRef = doc(firestore, `usersDocs/${documentId}`);
+        const docRef = doc(firestore, `usersDocs/${idDocumento}`);
         //buscar el documento
         const responseDocRef = await getDoc(docRef);  
         //lo que hará si el doc existe
@@ -56,15 +56,10 @@ function Home (globalUserEmail){
             <Button onClick={()=>{signOut(auth)}}>
                 Cerrar sesión
             </Button>
-            {tasks?
             <AddTask globalUserEmail={globalUserEmail} setTasks={setTasks} tasks={tasks} /> 
-            :null
-            }
-             
-
-            {tasks? <TaskList globalUserEmail={globalUserEmail} setTasks={setTasks} tasks={tasks} /> 
-                    :null
-                    }
+          
+             {tasks ? <TaskList globalUserEmail={globalUserEmail} setTasks={setTasks} tasks={tasks} /> :null
+                }
                      
         </Container>   
     )

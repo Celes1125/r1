@@ -14,17 +14,15 @@ const AddTask = ({globalUserEmail, setTasks, tasks})=>{
             ...tasks, 
             {
                 id: +new Date(),
+                itemId: +new Date(),
                 description: description,
                 url: "https://picsum.photos/420",
             },
-        ]
+        ];
         const docRef = doc(firestore, `usersDocs/${globalUserEmail}`);
-        await updateDoc(docRef, {tasks: [...newTasks]});  
+        updateDoc(docRef, {tasks: [...newTasks]});  
         //actualizar el estado correspondiente
-        setTasks(newTasks);
-        
-
-
+        setTasks(newTasks);      
     }
 
     return (
@@ -42,20 +40,9 @@ const AddTask = ({globalUserEmail, setTasks, tasks})=>{
                     </Row>
                 </Form>
             </Stack>
-        </Container>
-       
-      
-
-
+        </Container>    
     )
       
-}  
-
-
-    
-    
-    
-    
-     
+}    
 
 export default AddTask;

@@ -9,7 +9,7 @@ const TaskList = ({tasks, setTasks, globalUserEmail})=>{
 
     async function deleteTask (tIdtoDelete){
         //generar el nuevo array, sin el elemento a eliminar
-        const newTasks = tasks.filter((t)=> t.id !== tIdtoDelete);
+        const newTasks = tasks.filter((t)=> t.itemId !== tIdtoDelete);
         //actualizar la base de datos
         const docRef = doc(firestore, `usersDocs/${globalUserEmail}`);
         updateDoc(docRef, {tasks: [...newTasks]});  
@@ -24,14 +24,14 @@ const TaskList = ({tasks, setTasks, globalUserEmail})=>{
         <Container>
             <Stack>
                 {tasks.map(
-                    (task)=>{
+                    (t)=>{
                         return (
                             <>
                             <hr/>
-                            <Row key={task.id}>
-                                <Col >{task.description}</Col>
+                            <Row key={t.id}>
+                                <Col  >{t.description}</Col>
                                 <Col><Button>Ver</Button></Col>
-                                <Col><Button onClick={()=>deleteTask(task.id)}>Eliminar</Button></Col>
+                                <Col><Button onClick={()=>deleteTask(t.itemId)}>Eliminar</Button></Col>
                             </Row>
                             <hr/>                            
                             </>
