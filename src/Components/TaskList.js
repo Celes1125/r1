@@ -4,7 +4,6 @@ import { Container, Stack, Row, Col, Button } from "react-bootstrap";
 import firebaseApp from "../Config/firebase";
 import { getFirestore, doc, updateDoc } from "firebase/firestore";
 const firestore = getFirestore(firebaseApp);
-
 const TaskList = ({tasks, setTasks, globalUserEmail})=>{
 
     async function deleteTask (tIdtoDelete){
@@ -30,8 +29,9 @@ const TaskList = ({tasks, setTasks, globalUserEmail})=>{
                             <hr/>
                             <Row key={t.id}>
                                 <Col  >{t.description}</Col>
-                                <Col><Button>Ver</Button></Col>
-                                <Col><Button onClick={()=>deleteTask(t.itemId)}>Eliminar</Button></Col>
+                                <Col>
+                                <a href={t.url.downloadUrl}><Button>Ver</Button></a></Col>
+                                <Col><Button variant="danger" onClick={()=>deleteTask(t.itemId)}>Eliminar</Button></Col>
                             </Row>
                             <hr/>                            
                             </>
