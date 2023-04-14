@@ -1,5 +1,5 @@
 
-import { Button, Container } from "react-bootstrap";
+import { Button, Container, Stack } from "react-bootstrap";
 import firebaseApp from "../Config/firebase";
 import { getAuth, signOut } from "firebase/auth";
 import AddTask from "./AddTask";
@@ -52,14 +52,17 @@ const Home = ({globalUserEmail})=>{
     )
     return (
         <Container>
-            <h4>Hola, sesión iniciada</h4>
-            <Button onClick={()=>{signOut(auth)}}>
-                Cerrar sesión
-            </Button>
+            <Stack>
+            <h4>Hello {globalUserEmail}</h4>
+            <div><Button onClick={()=>{signOut(auth)}}>Salir</Button></div>            
+            </Stack>
+            <div>
             <AddTask globalUserEmail={globalUserEmail} setTasks={setTasks} tasks={tasks} /> 
           
-             {tasks ? <TaskList globalUserEmail={globalUserEmail} setTasks={setTasks} tasks={tasks} /> :null
-                }
+          {tasks ? <TaskList globalUserEmail={globalUserEmail} setTasks={setTasks} tasks={tasks} /> :null
+             }
+            </div>
+            
                      
         </Container>   
     )

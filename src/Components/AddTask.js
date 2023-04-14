@@ -38,13 +38,14 @@ const AddTask = ({globalUserEmail, setTasks, tasks})=>{
         await uploadBytes(fileRef, localFile );
         //obtener url de descarga
         downloadUrl = await getDownloadURL(fileRef);
-        //event.target.files[0]=(null)
+       
     }
 
-    return (
+    return (        
+        
         <Container>
-            <Stack>
-                <Form onSubmit={addingTask}>
+            
+                <Form onSubmit={addingTask}>   
                     <Row>
                         <Col>
                         <Form.Control type="text" placeholder="description" id="descriptionForm"/></Col>
@@ -55,7 +56,7 @@ const AddTask = ({globalUserEmail, setTasks, tasks})=>{
                         
                     </Row>
                 </Form>
-            </Stack>
+            
         </Container>    
     )
       
