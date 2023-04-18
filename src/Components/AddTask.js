@@ -1,13 +1,16 @@
-import React from "react";
+import React, {useContext, useReducer} from "react";
 import {Container, Stack, Form, Button, Row, Col} from 'react-bootstrap';
 import firebaseApp from "../Config/firebase";
 import { getFirestore, updateDoc, doc} from "firebase/firestore";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import TaskListContext from "../Contexts/TaskListContext";
 const firestore = getFirestore(firebaseApp);
 const storage = getStorage(firebaseApp);
 
 
-const AddTask = ({globalUserEmail, setTasks, tasks})=>{
+const AddTask = ({setTasks, tasks})=>{
+
+    const context = useContext(TaskListContext);
 
     let downloadUrl;
 
@@ -20,10 +23,10 @@ const AddTask = ({globalUserEmail, setTasks, tasks})=>{
                 id: +new Date(),
                 itemId: +new Date(),
                 description: description,
-                url: {downloadUrl},
+                downloadUrl,
             },
         ];
-        const docRef = doc(firestore, `usersDocs/${globalUserEmail}`);
+        const docRef = doc(firestore, `usersDocs/${context.globalUser.email}`);
         updateDoc(docRef, {tasks: [...newTasks]});  
         //actualizar el estado correspondiente
         setTasks(newTasks);   

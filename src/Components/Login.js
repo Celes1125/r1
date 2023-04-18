@@ -20,7 +20,7 @@ const Login = ()=>{
         await signInWithEmailAndPassword(auth, userEmail, userPassword);   
       }else{
         const user = await createUserWithEmailAndPassword(auth, userEmail, userPassword);
-        console.log (user)
+        console.log ("USER: ", user);
         
       }
 
