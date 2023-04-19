@@ -7,6 +7,7 @@ const auth = getAuth(firebaseApp);
 function GlobalState ({children}){
     //meto los hooks
     const [globalUser, setGlobalUser] = useState(null);
+    const [isRegistered, setIsRegistered] = useState(false);
 
     //meto los métodos de acceso, pueden quedar internos tb...
 
@@ -14,7 +15,8 @@ function GlobalState ({children}){
     return (
         <TaskListContext.Provider
             value = {{//acá metemos todos los estados y métodos a los que queremos que se tenga acceso a nivel del componente
-            globalUser, setGlobalUser}}>
+            globalUser, setGlobalUser,
+            isRegistered, setIsRegistered}}>
               {children}
             </TaskListContext.Provider>
     )

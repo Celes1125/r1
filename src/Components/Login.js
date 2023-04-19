@@ -1,6 +1,7 @@
 import {Container, Stack, Form, Button} from 'react-bootstrap';
-import React, {useState} from 'react'; 
+import React, {useContext, useState} from 'react'; 
 import firebaseApp from '../Config/firebase';
+import TaskListContext from '../Contexts/TaskListContext';
 import {getAuth,
   createUserWithEmailAndPassword,
    signInWithEmailAndPassword,
@@ -10,13 +11,13 @@ const auth = getAuth(firebaseApp);
 const googleProvider= new GoogleAuthProvider();
 
 const Login = ()=>{
-    const [isRegistered, setIsRegistered] = useState(false);
+    const context = useContext(TaskListContext);
     
     async function submitHandler (event){
       event.preventDefault();
       const userEmail = event.target.formBasicEmail.value;
       const userPassword = event.target.formBasicPassword.value;
-      if(isRegistered) {
+      if(context.isRegistered) {
         await signInWithEmailAndPassword(auth, userEmail, userPassword);   
       }else{
         const user = await createUserWithEmailAndPassword(auth, userEmail, userPassword);
@@ -44,15 +45,15 @@ const Login = ()=>{
             </Form.Group>
       
             <Button variant="dark" type="submit">
-              {isRegistered? "Iniciar sesión" : "Registrarme"}
+              {context.isRegistered? "Iniciar sesión" : "Registrarme"}
             </Button>
     </Form>
 
     <Button variant="primary" type="submit" onClick={()=>signInWithRedirect(auth, googleProvider)}>
         Iniciar sesión con Google
       </Button>
-      <Button variant="secondary" type="submit" onClick={()=>setIsRegistered(!isRegistered)}>
-        {isRegistered? "¿No tienes cuenta? Regístrate" : "¿Ya tienes cuenta? Inicia sesión"}
+      <Button variant="secondary" type="submit" onClick={()=>context.setIsRegistered(!context.isRegistered)}>
+        {context.isRegistered? "¿No tienes cuenta? Regístrate" : "¿Ya tienes cuenta? Inicia sesión"}
       </Button>
 
 
