@@ -1,15 +1,16 @@
 //IMPORTS
 //react
 import React, { useContext } from "react"; 
+//Context
+import TaskListContext  from "./Contexts/TaskListContext"; 
+//Locals
+import Login from "./Components/Login";
+import Home from "./Pages/Home";
 //Firebase
 import firebaseApp from "./Config/firebase";
 import {getAuth, onAuthStateChanged} from "firebase/auth";
 const auth = getAuth(firebaseApp);
-//Context
-//Bootstrap
-//Locals
-import Login from "./Components/Login";
-import TaskListContext  from "./Contexts/TaskListContext"; 
+
 
 //MAIN
 

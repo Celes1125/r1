@@ -3,7 +3,8 @@
 import React, {useContext} from 'react'; 
 //context
 import TaskListContext from '../Contexts/TaskListContext';
-
+//Bootstrap
+import {Container, Stack, Form, Button} from 'react-bootstrap';
 //Firebase
 import firebaseApp from '../Config/firebase';
 import {getAuth,createUserWithEmailAndPassword, 
@@ -11,8 +12,7 @@ import {getAuth,createUserWithEmailAndPassword,
         GoogleAuthProvider} from "firebase/auth";
 const auth = getAuth(firebaseApp);
 const googleProvider= new GoogleAuthProvider();
-//Bootstrap
-import {Container, Stack, Form, Button} from 'react-bootstrap';
+
 
 //MAIN FUNCTION
 const Login = ()=>{

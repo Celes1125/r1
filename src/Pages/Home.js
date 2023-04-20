@@ -3,17 +3,18 @@
 import React, { useEffect, useContext } from "react"; 
 //Context
 import TaskListContext from "../Contexts/TaskListContext";
-//Firebase
-import firebaseApp from "../Config/firebase";
-import { getAuth, signOut } from "firebase/auth";
-const auth = getAuth(firebaseApp);
-import {getFirestore, doc, getDoc, setDoc, updateDoc} from "firebase/firestore";
-const firestore = getFirestore(firebaseApp);
 //Bootstrap 
 import { Button, Container, Stack } from "react-bootstrap";
 //Locals
 import AddTask from "../Components/AddTask";
 import TaskList from "../Components/TaskList";
+//Firebase
+import firebaseApp from "../Config/firebase";
+import { getAuth, signOut } from "firebase/auth";
+import {getFirestore, doc, getDoc, setDoc, updateDoc} from "firebase/firestore";
+const firestore = getFirestore(firebaseApp);
+const auth = getAuth(firebaseApp);
+
 
 //MAIN FUNCTION
 const Home = ()=>{ 
