@@ -8,7 +8,7 @@ const firestore = getFirestore(firebaseApp);
 const storage = getStorage(firebaseApp);
 
 
-const AddTask = ({setTasks, tasks})=>{
+const AddTask = ()=>{
 
     const context = useContext(TaskListContext);
 
@@ -18,7 +18,7 @@ const AddTask = ({setTasks, tasks})=>{
         event.preventDefault();   
         const description = event.target.descriptionForm.value;     
         const newTasks = [
-            ...tasks, 
+            ...context.tasks, 
             {
                 id: +new Date(),
                 itemId: +new Date(),
@@ -29,7 +29,7 @@ const AddTask = ({setTasks, tasks})=>{
         const docRef = doc(firestore, `usersDocs/${context.globalUser.email}`);
         updateDoc(docRef, {tasks: [...newTasks]});  
         //actualizar el estado correspondiente
-        setTasks(newTasks);   
+        context.setTasks(newTasks);   
         event.target.descriptionForm.value="";  
     }
 

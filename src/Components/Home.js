@@ -20,15 +20,9 @@ const Home = ()=>{
     
     const context = useContext(TaskListContext);
 
-    console.log("MAIL EN HOME: ", context.globalUser.email);
-
-    const [tasks, setTasks] = useState(null);
+    console.log("MAIL EN HOME: ", context.globalUser.email);    
     
-    const fakeData = [
-        {id: 1, itemId: 1, description: "tarea falsa 1", downloadUrl: "https://picsum.photos/420"},
-        {id: 2, itemId: 2, description: "tarea falsa 2", downloadUrl: "https://picsum.photos/420"}, 
-        {id: 3, itemId: 3, description: "tarea falsa 3", downloadUrl: "https://picsum.photos/420"}
-    ]
+    
 
     async function searchOrCreateDocs (idDocumento) {
         //crear la referencia al documento
@@ -40,7 +34,7 @@ const Home = ()=>{
             const dataResponse = responseDocRef.data();
             return dataResponse.tasks;
         }else{//lo que hará si el doc no existe
-            await setDoc(docRef, {tasks:[...fakeData]});
+            await setDoc(docRef, {tasks:[...context.fakeData]});
             const responseDocRef = await getDoc(docRef); 
             const dataResponse = responseDocRef.data();
             return dataResponse.tasks;
@@ -52,7 +46,7 @@ const Home = ()=>{
         ()=>{
             async function fetchTasks (){                                                
                 const fetchedTasks = await searchOrCreateDocs(context.globalUser.email);
-                setTasks(fetchedTasks);                
+                context.setTasks(fetchedTasks);                
                 
             }
             fetchTasks()
@@ -72,14 +66,16 @@ const Home = ()=>{
                 <div><Button onClick={()=>{signOut(auth)}}>Salir</Button></div>            
                 </Stack>
                 <div>
-                <AddTask setTasks={setTasks} tasks={tasks} /> 
+                <AddTask/> 
               
-              {tasks ? <TaskList setTasks={setTasks} tasks={tasks} /> :null
-                 }
+              {context.tasks ? <TaskList /> :null }
                 </div>
                 
                          
             </Container>   
+
+            
+                
                 
             }
         </TaskListContext.Consumer>

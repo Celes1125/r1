@@ -2,11 +2,8 @@ import {Container, Stack, Form, Button} from 'react-bootstrap';
 import React, {useContext, useState} from 'react'; 
 import firebaseApp from '../Config/firebase';
 import TaskListContext from '../Contexts/TaskListContext';
-import {getAuth,
-  createUserWithEmailAndPassword,
-   signInWithEmailAndPassword,
-   signInWithRedirect, 
-   GoogleAuthProvider} from "firebase/auth";
+import {getAuth,createUserWithEmailAndPassword, signInWithEmailAndPassword,
+   signInWithRedirect, GoogleAuthProvider} from "firebase/auth";
 const auth = getAuth(firebaseApp);
 const googleProvider= new GoogleAuthProvider();
 

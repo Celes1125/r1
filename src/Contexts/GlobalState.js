@@ -8,6 +8,12 @@ function GlobalState ({children}){
     //meto los hooks
     const [globalUser, setGlobalUser] = useState(null);
     const [isRegistered, setIsRegistered] = useState(false);
+    const [tasks, setTasks] = useState(null);
+    const fakeData = [
+      {id: 1, itemId: 1, description: "tarea falsa 1", downloadUrl: "https://picsum.photos/420"},
+      {id: 2, itemId: 2, description: "tarea falsa 2", downloadUrl: "https://picsum.photos/420"}, 
+      {id: 3, itemId: 3, description: "tarea falsa 3", downloadUrl: "https://picsum.photos/420"}
+  ]
 
     //meto los métodos de acceso, pueden quedar internos tb...
 
@@ -16,7 +22,9 @@ function GlobalState ({children}){
         <TaskListContext.Provider
             value = {{//acá metemos todos los estados y métodos a los que queremos que se tenga acceso a nivel del componente
             globalUser, setGlobalUser,
-            isRegistered, setIsRegistered}}>
+            isRegistered, setIsRegistered,
+            tasks, setTasks,
+            fakeData}}>
               {children}
             </TaskListContext.Provider>
     )
