@@ -1,19 +1,25 @@
-import React, {useContext, useReducer} from "react";
-import {Container, Stack, Form, Button, Row, Col} from 'react-bootstrap';
+//IMPORTS
+//react
+import React, {useContext} from "react";
+//context
+import TaskListContext from "../Contexts/TaskListContext";
+//firebase
 import firebaseApp from "../Config/firebase";
 import { getFirestore, updateDoc, doc} from "firebase/firestore";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
-import TaskListContext from "../Contexts/TaskListContext";
 const firestore = getFirestore(firebaseApp);
 const storage = getStorage(firebaseApp);
+//bootstrap
+import {Container,Form, Button, Row, Col} from 'react-bootstrap';
+//locals
 
 
+//MAIN
+
+//adding tasks function
 const AddTask = ()=>{
-
     const context = useContext(TaskListContext);
-
     let downloadUrl;
-
     async function addingTask (event){
         event.preventDefault();   
         const description = event.target.descriptionForm.value;     
@@ -44,10 +50,8 @@ const AddTask = ()=>{
        
     }
 
-    return (        
-        
-        <Container>
-            
+    return ( 
+        <Container>            
                 <Form onSubmit={addingTask}>   
                     <Row>
                         <Col>
@@ -61,8 +65,7 @@ const AddTask = ()=>{
                 </Form>
             
         </Container>    
-    )
-      
+    )      
 }    
 
 export default AddTask;

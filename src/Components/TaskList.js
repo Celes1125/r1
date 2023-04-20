@@ -1,27 +1,35 @@
-
+//IMPORTS
+//react
 import React, {useContext} from "react";
-import { Container, Stack, Row, Col, Button } from "react-bootstrap";
+//context
+import TaskListContext from "../Contexts/TaskListContext";
+//firebase
 import firebaseApp from "../Config/firebase";
 import { getFirestore, doc, updateDoc } from "firebase/firestore";
-import { getStorage, ref, deleteObject } from "firebase/storage";
-import TaskListContext from "../Contexts/TaskListContext";
+import { getStorage, ref, deleteObject } from "firebase/storage";i
 const firestore = getFirestore(firebaseApp);
 const storage = getStorage(firebaseApp);
+//bootstrap
+import { Container, Stack, Row, Col, Button } from "react-bootstrap";
 
-
+//MAIN
 const TaskList = ()=>{
 
     const context = useContext(TaskListContext);
 
+    //delete task function
+
     async function deleteTask (tIdtoDelete){
         
-        //generar el nuevo array, sin el elemento a eliminar
+        //generating a new task array without the item wich is want to eliminate
         const newTasks = context.tasks.filter((t)=> t.itemId !== tIdtoDelete);
-        //borrar el archivo del storage
+        //deleting the file associated with the task to be deleted
         const taskToDelete = context.tasks.filter((t)=> t.itemId == tIdtoDelete);
         console.log("taskToDelete: ", taskToDelete);
         const urlToDelete = taskToDelete[0].downloadUrl;        
         console.log("URL: ", urlToDelete);
+        /*it is created a variable to handle the situation with undefined url data, 
+        what happens with fake url wich doesnt exists in firebase*/
 
         const firebaseUrl = "https://firebasestorage";
 
@@ -29,18 +37,12 @@ const TaskList = ()=>{
             const fileRef = ref(storage, urlToDelete);
             await deleteObject(fileRef);
         } 
-        //actualizar la base de datos
+        //refreshing database
         const docRef = doc(firestore, `usersDocs/${context.globalUser.email}`);
         updateDoc(docRef, {tasks: [...newTasks]});  
-        //actualizar el estado correspondiente
-        context.setTasks(newTasks);
-        
-
-
-    }
-
-    console.log("MAIL EN TASKLIST: ", context.globalUser.email);
-
+        //refreshing tasks state
+        context.setTasks(newTasks);       
+    }   
 
     return (
         <TaskListContext.Consumer>{
@@ -60,19 +62,15 @@ const TaskList = ()=>{
                                 </Row>
                                 <hr/>                            
                                 </>
-
                             )
                         }
                     )}
                 </Stack>
             </Container>
-            }
+            }           
             
-            
-        </TaskListContext.Consumer>
-        
+        </TaskListContext.Consumer>       
 
     )
 }
-
 export default TaskList;

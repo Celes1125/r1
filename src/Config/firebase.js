@@ -1,3 +1,4 @@
+//Configuring Firebase app using firebase account celeste.colautti.it@gmail.com
 import {initializeApp} from "firebase/app";
 
 const firebaseConfig = {
@@ -20,7 +21,7 @@ const firebaseConfig = {
 
   export default firebaseApp;
 
-  //using firebase account celeste.colautti.it@gmail.com
+  
 
 
 

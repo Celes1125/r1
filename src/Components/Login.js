@@ -1,13 +1,22 @@
-import {Container, Stack, Form, Button} from 'react-bootstrap';
-import React, {useContext, useState} from 'react'; 
-import firebaseApp from '../Config/firebase';
+//IMPORTS
+//react
+import React, {useContext} from 'react'; 
+//context
 import TaskListContext from '../Contexts/TaskListContext';
-import {getAuth,createUserWithEmailAndPassword, signInWithEmailAndPassword,
-   signInWithRedirect, GoogleAuthProvider} from "firebase/auth";
+
+//Firebase
+import firebaseApp from '../Config/firebase';
+import {getAuth,createUserWithEmailAndPassword, 
+        signInWithEmailAndPassword, signInWithRedirect, 
+        GoogleAuthProvider} from "firebase/auth";
 const auth = getAuth(firebaseApp);
 const googleProvider= new GoogleAuthProvider();
+//Bootstrap
+import {Container, Stack, Form, Button} from 'react-bootstrap';
 
+//MAIN FUNCTION
 const Login = ()=>{
+
     const context = useContext(TaskListContext);
     
     async function submitHandler (event){
@@ -20,14 +29,9 @@ const Login = ()=>{
         const user = await createUserWithEmailAndPassword(auth, userEmail, userPassword);
         console.log ("USER: ", user);
         
-      }
+      }}
 
-    }
-
-
-
-    return (
-          
+    return (          
     <Container>
         <Stack gap={3}>
           <Form onSubmit={submitHandler}>
@@ -44,22 +48,19 @@ const Login = ()=>{
             <Button variant="dark" type="submit">
               {context.isRegistered? "Iniciar sesión" : "Registrarme"}
             </Button>
-    </Form>
+          </Form>
 
-    <Button variant="primary" type="submit" onClick={()=>signInWithRedirect(auth, googleProvider)}>
-        Iniciar sesión con Google
-      </Button>
-      <Button variant="secondary" type="submit" onClick={()=>context.setIsRegistered(!context.isRegistered)}>
-        {context.isRegistered? "¿No tienes cuenta? Regístrate" : "¿Ya tienes cuenta? Inicia sesión"}
-      </Button>
-
-
+          <Button variant="primary" type="submit" onClick={()=>signInWithRedirect(auth, googleProvider)}>
+          Iniciar sesión con Google
+          </Button>
+          <Button variant="secondary" type="submit" onClick={()=>context.setIsRegistered(!context.isRegistered)}>
+          {context.isRegistered? "¿No tienes cuenta? Regístrate" : "¿Ya tienes cuenta? Inicia sesión"}
+          </Button>
         </Stack> 
-    </Container>
-
-    
-        
-        
+    </Container>  
 )
 }
 export default Login;
+
+/*NOTE: The last button allows to switch wether the user is registered or not, 
+being the options: 1. signup, signin with email and password, and signin with Gmail.*/
