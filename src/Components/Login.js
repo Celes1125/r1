@@ -4,7 +4,10 @@ import React, {useContext} from 'react';
 //context
 import TaskListContext from '../Contexts/TaskListContext';
 //Bootstrap
-import {Container, Stack, Form, Button} from 'react-bootstrap';
+import  Form from "react-bootstrap/Form";
+import  Container from "react-bootstrap/Container";
+import  Stack  from "react-bootstrap/Stack";
+import  Button from "react-bootstrap/Button";
 //Firebase
 import firebaseApp from '../Config/firebase';
 import {getAuth,createUserWithEmailAndPassword, 
@@ -12,7 +15,14 @@ import {getAuth,createUserWithEmailAndPassword,
         GoogleAuthProvider} from "firebase/auth";
 const auth = getAuth(firebaseApp);
 const googleProvider= new GoogleAuthProvider();
+//Styles
+const styles = {
+  container:{
 
+    marginTop: "10px", 
+    width:"80%",
+  }
+}
 
 //MAIN FUNCTION
 const Login = ()=>{
@@ -32,7 +42,7 @@ const Login = ()=>{
       }}
 
     return (          
-    <Container>
+    <Container style={styles.container}>
         <Stack gap={3}>
           <Form onSubmit={submitHandler}>
             <Form.Group className="mb-3" controlId="formBasicEmail">

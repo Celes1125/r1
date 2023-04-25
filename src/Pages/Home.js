@@ -1,22 +1,23 @@
-//IMPORTS
-//React
 import React, { useEffect, useContext } from "react"; 
-//Context
 import TaskListContext from "../Contexts/TaskListContext";
-//Bootstrap 
-import { Button, Container, Stack } from "react-bootstrap";
-//Locals
-import AddTask from "../Components/AddTask";
+import  {Container, Stack, Button} from "react-bootstrap";
 import TaskList from "../Components/TaskList";
-//Firebase
 import firebaseApp from "../Config/firebase";
-import { getAuth, signOut } from "firebase/auth";
+import { getAuth} from "firebase/auth";
 import {getFirestore, doc, getDoc, setDoc, updateDoc} from "firebase/firestore";
 const firestore = getFirestore(firebaseApp);
 const auth = getAuth(firebaseApp);
+const styles = {
+    top_container:{   
+        marginTop: "50px", 
+      width:"80%",
+      
+      
+    },  
+
+}
 
 
-//MAIN FUNCTION
 const Home = ()=>{ 
     const context = useContext(TaskListContext);
     async function searchOrCreateDocs (idDocumento) {
@@ -52,17 +53,16 @@ const Home = ()=>{
     return (
         <TaskListContext.Consumer>
             {context=>
-                <Container>
-                <Stack>
-                <h4>Hello {context.globalUser.email}</h4>
-                <div><Button onClick={()=>{signOut(auth)}}>Salir</Button></div>            
-                </Stack>
+                <Container style={styles.top_container}>   
                 <div>
-                <AddTask/>             
-              {context.tasks ? <TaskList /> :null }
+                               
+                    {context.tasks ? <TaskList /> :null }
                 </div>               
-                         
-            </Container>   
+                     
+            </Container> 
+
+            
+                  
             }
         </TaskListContext.Consumer>        
     )

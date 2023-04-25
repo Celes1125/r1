@@ -1,0 +1,28 @@
+1. editar tareas
+2. subir archivos pdf, jpg, txt, word, excel...y que el input tipo file se limpie!
+3. manejo de errores
+4. mensajes de error para el usuario
+5. método interno para borrar datos en lote de las bases
+6. agregar campos nuevos a las tareas: 
+    fecha de inicio
+    fecha de cierre
+    responsable
+    nombre
+    descripción
+    observaciones
+7.Buscador/Visor de tareas
+    x nombre
+    x fecha de inicio
+    x fecha de cierre
+    x responsable
+    x estado: finalizada/no finalizada/demorada/abandonada/pausada/cancelada
+
+8. Posibilidad de enviar tareas por mensajería
+9. Meterme con Bootstrap y material design
+10. Subida a producción!
+11. limpiar campos de forms!
+
+Créditos
+logo.img: Imagen de <a href="https://pixabay.com/es/users/tranquangkhai-718075/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=6491199">Khai TranQuang</a> en <a href="https://pixabay.com/es//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=6491199">Pixabay</a>
+
+

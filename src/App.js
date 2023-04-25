@@ -11,7 +11,6 @@ import firebaseApp from "./Config/firebase";
 import {getAuth, onAuthStateChanged} from "firebase/auth";
 const auth = getAuth(firebaseApp);
 
-
 //MAIN
 
 function App() {    
@@ -28,11 +27,10 @@ function App() {
 
   return (
     <TaskListContext.Consumer>
-      {context=>
+      {context=>   
       <div>
       {context.globalUser ? <Home /> : <Login />} 
-      </div>
-      }
+      </div>}    
     </TaskListContext.Consumer>  
   );
 }
