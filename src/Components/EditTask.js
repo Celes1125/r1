@@ -1,11 +1,10 @@
-import React from "react";
+import React from 'react'
 
-const EditTask = ()=>{
-    return (
-    <div>
-        Editar tarea
-    </div>
-    )
-    
+const EditTask = () => {
+  return (
+        <div>
+            Editar tarea
+        </div>
+  )
 }
-export default EditTask;
+export default EditTask

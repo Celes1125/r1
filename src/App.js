@@ -1,37 +1,26 @@
-//IMPORTS
-//react
-import React, { useContext } from "react"; 
-//Context
-import TaskListContext  from "./Contexts/TaskListContext"; 
-//Locals
-import Login from "./Components/Login";
-import Home from "./Pages/Home";
-//Firebase
-import firebaseApp from "./Config/firebase";
-import {getAuth, onAuthStateChanged} from "firebase/auth";
-const auth = getAuth(firebaseApp);
+import React, { useContext, useEffect } from 'react'
+import TaskListContext from './Contexts/TaskListContext'
+import Login from './Components/Login'
+import Home from './Pages/Home'
+import firebaseApp from './Config/firebase'
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
 
-//MAIN
+const auth = getAuth(firebaseApp)
 
-function App() {    
-  const context = useContext(TaskListContext);
-  //Monitoring login user state with this firebase method: 
-  onAuthStateChanged(auth, (user)=>{    
-    if(user){
-      {context.setGlobalUser(user)}
-    }else{
-      {context.setGlobalUser(null)}
-    }
+function App () {
+  const context = useContext(TaskListContext)
 
-  })
+  useEffect(() => {
+    onAuthStateChanged(auth, function (user) {
+      if (user) {
+        context.setGlobalUser({ ...user })
+      } else {
+        context.setGlobalUser({})
+      }
+    })
+  }, [context.setGlobalUser])
 
-  return (
-    <TaskListContext.Consumer>
-      {context=>   
-      <div>
-      {context.globalUser ? <Home /> : <Login />} 
-      </div>}    
-    </TaskListContext.Consumer>  
-  );
+  return context.globalUser ? <Home /> : <Login />
 }
-export default App;
+
+export default App
