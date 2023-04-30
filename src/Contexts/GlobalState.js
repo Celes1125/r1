@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import TaskListContext from './TaskListContext'
 
-function GlobalState (children) {
+const GlobalState = props => {
   const [globalUser, setGlobalUser] = useState({ user: { email: 'defaultUser@gmail.com' } })
   const [isRegistered] = useState(false)
   const [tasks, setTasks] = useState(null)
@@ -21,12 +22,14 @@ function GlobalState (children) {
           tasks,
           setTasks,
           fakeData
-        }}>{(children)}
+        }}>{props.children}
       </TaskListContext.Provider>
-
     </div>
-
   )
+}
+
+GlobalState.propTypes = {
+  children: PropTypes.node.isRequired
 }
 
 export default GlobalState
