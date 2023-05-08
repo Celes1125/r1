@@ -1,4 +1,3 @@
-
 import React, { useContext } from 'react'
 import TaskListContext from '../Contexts/TaskListContext'
 import Form from 'react-bootstrap/Form'
@@ -55,7 +54,7 @@ const Login = () => {
         <Button variant='primary' type='submit' onClick={() => signInWithRedirect(auth, googleProvider)}>
           Iniciar sesión con Google
         </Button>
-        <Button variant='secondary' type='submit' onClick={() => context.setIsRegistered(!context.isRegistered)}>
+        <Button variant='secondary' type='submit' onClick={() => context.setIsRegistered(!context.isRegistered) }>
           {context.isRegistered ? '¿No tienes cuenta? Regístrate' : '¿Ya tienes cuenta? Inicia sesión'}
         </Button>
       </Stack>

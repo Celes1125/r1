@@ -1,26 +1,41 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import TaskListContext from './Contexts/TaskListContext'
+import { BrowserRouter as Route } from 'react-router-dom'
 import Login from './Components/Login'
 import Home from './Pages/Home'
 import firebaseApp from './Config/firebase'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
-
+import Menu from './Components/Menu'
+import Profile from './Pages/Profile'
+import SearchTask from './Pages/SearchTask'
+import AddTask from './Components/AddTask'
+import EditTask from './Components/EditTask'
+import { Container } from 'react-bootstrap'
 const auth = getAuth(firebaseApp)
 
 function App () {
   const context = useContext(TaskListContext)
 
-  useEffect(() => {
-    onAuthStateChanged(auth, function (user) {
-      if (user) {
-        context.setGlobalUser({ ...user })
-      } else {
-        context.setGlobalUser({})
-      }
-    })
-  }, [context.setGlobalUser])
+  onAuthStateChanged(auth, function (user) {
+    if (user) {
+      context.setGlobalUser({ ...user })
+    } else {
+      context.setGlobalUser(null)
+    }
+  })
 
-  return context.globalUser ? <Home /> : <Login />
+  return (
+    <Container>
+        <Menu />
+        {context.setGlobalUser ? <Home /> : <Login /> }
+        <Route path='/add' exact element={<AddTask />} />
+        <Route path='/search' exact element={<SearchTask />} />
+        <Route path='/profile' exact element={<Profile />} />
+        <Route path='/edit' exact element={<EditTask />} />
+
+    </Container>
+
+  )
 }
 
 export default App

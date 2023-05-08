@@ -28,27 +28,37 @@ const styles = {
 }
 
 const Menu = () => {
+  async function handleSignOut () {
+    try {
+      await signOut(auth)
+      console.log('User sign out successfully')
+    } catch (error) {
+      console.log('ERROR: ', error)
+    }
+  }
+
   return (
 
-    <Container style={styles.top_container}>
-      <Navbar bg="light">
-        <Container>
-          <Navbar.Brand href="/" style={styles.navbrand}>
-            <img src="http://localhost:3000/logo.png" width="40" height="40"
-              className="d-inline-block align-top"
-              alt="task app logo"
-            />
-          </Navbar.Brand>
-        </Container>
+      <Container style={styles.top_container}>
+        <Navbar bg="light">
+          <Container>
+            <Navbar.Brand href="/" style={styles.navbrand}>
+              <img src="http://localhost:3000/logo.png" width="40" height="40"
+                className="d-inline-block align-top"
+                alt="task app logo"
+              />
+            </Navbar.Brand>
+          </Container>
 
-        <Container style={styles.icons_container}>
-          <Nav.Link style={styles.icons} href="/add">+</Nav.Link>
-          <Nav.Link style={styles.icons} href="/search"><AiOutlineSearch /></Nav.Link>
-          <Nav.Link onClick={() => signOut(auth)} style={styles.icons}><AiOutlineLogout /></Nav.Link>
-          <Nav.Link style={styles.icons} href="/profile"><FaUser /></Nav.Link>
-        </Container>
-      </Navbar>
-    </Container>
+          <Container style={styles.icons_container}>
+            <Nav.Link style={styles.icons} href="/add">+</Nav.Link>
+            <Nav.Link style={styles.icons} href="/search"><AiOutlineSearch /></Nav.Link>
+            <Nav.Link onClick={handleSignOut}><AiOutlineLogout /></Nav.Link>
+            <Nav.Link style={styles.icons} href="/profile"><FaUser /></Nav.Link>
+          </Container>
+        </Navbar>
+      </Container>
   )
 }
+
 export default Menu

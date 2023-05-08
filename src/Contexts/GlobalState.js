@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import TaskListContext from './TaskListContext'
 
 const GlobalState = props => {
-  const [globalUser, setGlobalUser] = useState({ user: { email: 'defaultUser@gmail.com' } })
-  const [isRegistered] = useState(false)
-  const [tasks, setTasks] = useState(null)
+  const [globalUser, setGlobalUser] = useState(null)
+  const [isRegistered, setIsRegistered] = useState(false)
+  const [tasks, setTasks] = useState([])
   const fakeData = [
     { id: 1, itemId: 1, description: 'tarea falsa 1', downloadUrl: 'https://picsum.photos/420' },
     { id: 2, itemId: 2, description: 'tarea falsa 2', downloadUrl: 'https://picsum.photos/420' },
@@ -19,6 +19,7 @@ const GlobalState = props => {
           globalUser,
           setGlobalUser,
           isRegistered,
+          setIsRegistered,
           tasks,
           setTasks,
           fakeData

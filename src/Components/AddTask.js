@@ -13,8 +13,18 @@ const storage = getStorage(firebaseApp)
 
 const AddTask = () => {
   const context = useContext(TaskListContext)
-  let downloadUrl
+  console.log('GLOBALUSER1: ', context.globalUser.email)
+  let downloadUrl = ''
 
+  async function fileHandler (event) {
+    // detectar archivo
+    const localFile = event.target.formControlFile.files[0]
+    // cargarlo a storage
+    const fileRef = ref(storage, `tasksFiles/${localFile.name}`)
+    await uploadBytes(fileRef, localFile)
+    // obtener url de descarga
+    downloadUrl = getDownloadURL(fileRef)
+  }
   async function addingTask (event) {
     event.preventDefault()
     const description = event.target.descriptionForm.value
@@ -23,23 +33,13 @@ const AddTask = () => {
       {
         id: +new Date(),
         itemId: +new Date(),
-        description: { description },
+        description,
         downloadUrl
       }
     ]
     const docRef = doc(firestore, `usersDocs/${context.globalUser.email}`)
     await updateDoc(docRef, { tasks: [...newTasks] })
-    context.setTasks(newTasks)
-  }
-
-  async function fileHandler (event) {
-    // detectar archivo
-    const localFile = event.target.files[0]
-    // cargarlo a storage
-    const fileRef = ref(storage, `tasksFiles/${localFile.name}`)
-    await uploadBytes(fileRef, localFile)
-    // obtener url de descarga
-    downloadUrl = await getDownloadURL(fileRef)
+    await context.setTasks(newTasks)
   }
 
   return (
@@ -49,7 +49,7 @@ const AddTask = () => {
                     <Col>
                         <Form.Control type='text' placeholder='insert description' id='descriptionForm' /></Col>
                     <Col>
-                        <Form.Control type='file' placeholder='insert file' onChange={fileHandler} /></Col>
+                        <Form.Control id='formControlFile' type='file' placeholder='insert file' onChange={fileHandler} /></Col>
                     <Col>
                         <Button type='submit' >Add task </Button></Col>
 
