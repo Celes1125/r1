@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router } from 'react-router-dom'
 import GlobalState from './Contexts/GlobalState'
 import App from './App'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -15,9 +15,7 @@ root.render(
           minBreakpoint='xxs'
         >
           <Router>
-            <Routes>
-              <Route path='/*' exact element={<App />} />
-            </Routes>
+            <App />
           </Router>
       </ThemeProvider>
     </GlobalState>

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import TaskListContext from './Contexts/TaskListContext'
-import { BrowserRouter as Route } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import Login from './Components/Login'
 import Home from './Pages/Home'
 import firebaseApp from './Config/firebase'
@@ -27,12 +27,14 @@ function App () {
   return (
     <Container>
         <Menu />
-        {context.setGlobalUser ? <Home /> : <Login /> }
+        <Routes>
+        <Route path='/' exact element={<Home />} />
         <Route path='/add' exact element={<AddTask />} />
         <Route path='/search' exact element={<SearchTask />} />
         <Route path='/profile' exact element={<Profile />} />
+        <Route path='/login' exact element={<Login />} />
         <Route path='/edit' exact element={<EditTask />} />
-
+        </Routes>
     </Container>
 
   )

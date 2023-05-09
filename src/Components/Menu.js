@@ -1,8 +1,8 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { FaUser } from 'react-icons/fa'
 import { AiOutlineSearch, AiOutlineLogout } from 'react-icons/ai'
 import Container from 'react-bootstrap/Container'
-import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 import firebaseApp from '../Config/firebase'
 import { getAuth, signOut } from 'firebase/auth'
@@ -51,10 +51,10 @@ const Menu = () => {
           </Container>
 
           <Container style={styles.icons_container}>
-            <Nav.Link style={styles.icons} href="/add">+</Nav.Link>
-            <Nav.Link style={styles.icons} href="/search"><AiOutlineSearch /></Nav.Link>
-            <Nav.Link onClick={handleSignOut}><AiOutlineLogout /></Nav.Link>
-            <Nav.Link style={styles.icons} href="/profile"><FaUser /></Nav.Link>
+            <Link style={styles.icons} to="/add">+</Link>
+            <Link style={styles.icons} to="/search"><AiOutlineSearch /></Link>
+            <Link onClick={handleSignOut}><AiOutlineLogout /></Link>
+            <Link style={styles.icons} to="/profile"><FaUser /></Link>
           </Container>
         </Navbar>
       </Container>

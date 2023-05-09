@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import TaskListContext from '../Contexts/TaskListContext'
 import Form from 'react-bootstrap/Form'
 import Container from 'react-bootstrap/Container'
@@ -6,57 +6,66 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import firebaseApp from '../Config/firebase'
+import Board from '../Pages/Board'
 import { getFirestore, updateDoc, doc } from 'firebase/firestore'
 import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage'
+
 const firestore = getFirestore(firebaseApp)
 const storage = getStorage(firebaseApp)
 
 const AddTask = () => {
   const context = useContext(TaskListContext)
-  console.log('GLOBALUSER1: ', context.globalUser.email)
-  let downloadUrl = ''
+  const [downloadUrl, setDownloadUrl] = useState('')
 
-  async function fileHandler (event) {
-    // detectar archivo
-    const localFile = event.target.formControlFile.files[0]
-    // cargarlo a storage
-    const fileRef = ref(storage, `tasksFiles/${localFile.name}`)
-    await uploadBytes(fileRef, localFile)
-    // obtener url de descarga
-    downloadUrl = getDownloadURL(fileRef)
+  const fileHandler = async (event) => {
+    try {
+      const localFile = event.target.files[0]
+      const fileRef = ref(storage, `tasksFiles/${localFile.name}`)
+      await uploadBytes(fileRef, localFile)
+      const url = await getDownloadURL(fileRef)
+      setDownloadUrl(url)
+    } catch (error) {
+      console.error('Error uploading file:', error)
+    }
   }
-  async function addingTask (event) {
-    event.preventDefault()
-    const description = event.target.descriptionForm.value
-    const newTasks = [
-      ...context.tasks,
-      {
-        id: +new Date(),
-        itemId: +new Date(),
+
+  const addingTask = async (event) => {
+    try {
+      event.preventDefault()
+      const description = event.target.description_form.value
+      const newTask = {
+        id: new Date().getTime(),
+        itemId: new Date().getTime(),
         description,
         downloadUrl
       }
-    ]
-    const docRef = doc(firestore, `usersDocs/${context.globalUser.email}`)
-    await updateDoc(docRef, { tasks: [...newTasks] })
-    await context.setTasks(newTasks)
+      const newTasks = [...context.tasks, newTask]
+      const docRef = doc(firestore, `usersDocs/${context.globalUser.email}`)
+      await updateDoc(docRef, { tasks: newTasks })
+      await context.setTasks(newTasks)
+      event.target.reset()
+      setDownloadUrl('')
+    } catch (error) {
+      console.error('Error adding task:', error)
+    }
   }
 
   return (
-        <Container>
-            <Form onSubmit={addingTask}>
-                <Row>
-                    <Col>
-                        <Form.Control type='text' placeholder='insert description' id='descriptionForm' /></Col>
-                    <Col>
-                        <Form.Control id='formControlFile' type='file' placeholder='insert file' onChange={fileHandler} /></Col>
-                    <Col>
-                        <Button type='submit' >Add task </Button></Col>
-
-                </Row>
-            </Form>
-
-        </Container>
+    <Container>
+      <Board />
+      <Form onSubmit={addingTask}>
+        <Row>
+          <Col>
+            <Form.Control type="text" placeholder="Insert description" id="description_form" />
+          </Col>
+          <Col>
+            <Form.Control type="file" placeholder="Insert file" onChange={fileHandler} />
+          </Col>
+          <Col>
+            <Button type="submit">Add task</Button>
+          </Col>        </Row>
+      </Form>
+    </Container>
   )
 }
 
