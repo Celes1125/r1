@@ -19,6 +19,7 @@ const AddTask = () => {
 
   const fileHandler = async (event) => {
     try {
+      event.preventDefault()
       const localFile = event.target.files[0]
       const fileRef = ref(storage, `tasksFiles/${localFile.name}`)
       await uploadBytes(fileRef, localFile)
@@ -44,7 +45,6 @@ const AddTask = () => {
       await updateDoc(docRef, { tasks: newTasks })
       await context.setTasks(newTasks)
       event.target.reset()
-      setDownloadUrl('')
     } catch (error) {
       console.error('Error adding task:', error)
     }

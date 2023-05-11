@@ -66,7 +66,7 @@ function TaskList () {
 
             <Row key={t.id} style={styles.border}>
               <Col key={t.id} xs={2} md={4} lg={9} >{t.description}</Col>
-              <Col key={t.id} xs={1} md={1} lg={1}><Link to={t.downloadUrl}><BsEye style={styles.eyes} /></Link> </Col>
+              <Col key={t.id} xs={1} md={1} lg={1}><Link target='_blank' to={t.downloadUrl}><BsEye style={styles.eyes} /></Link> </Col>
               <Col key={t.id} xs={1} md={1} lg={1}><Link to='/edit' ><AiFillEdit /></Link></Col>
               <Col key={t.id} xs={1} md={1} lg={1}><Link onClick={() => deleteTask(t.itemId)}><AiOutlineDelete style={styles.deleteIcon} /></Link></Col>
 

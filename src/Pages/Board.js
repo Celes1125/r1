@@ -83,8 +83,7 @@ const Board = () => {
         context.setTasks(fetchedTasks)
       }
       fetchTasks()
-    },
-    [context.setTasks]
+    }
   )
 
   return (

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import TaskListContext from './Contexts/TaskListContext'
 import { Routes, Route } from 'react-router-dom'
 import Login from './Components/Login'
@@ -16,13 +16,18 @@ const auth = getAuth(firebaseApp)
 function App () {
   const context = useContext(TaskListContext)
 
-  onAuthStateChanged(auth, function (user) {
-    if (user) {
-      context.setGlobalUser({ ...user })
-    } else {
-      context.setGlobalUser(null)
+  useEffect(
+    () => {
+      onAuthStateChanged(auth, function (user) {
+        if (user) {
+          context.setGlobalUser({ ...user })
+        } else {
+          context.setGlobalUser(null)
+        }
+      })
     }
-  })
+
+  )
 
   return (
     <Container>
