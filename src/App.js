@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useMemo } from 'react'
 import TaskListContext from './Contexts/TaskListContext'
 import { Routes, Route } from 'react-router-dom'
 import Login from './Components/Login'
@@ -13,33 +13,28 @@ import EditTask from './Components/EditTask'
 import { Container } from 'react-bootstrap'
 const auth = getAuth(firebaseApp)
 
-function App () {
+function App() {
   const context = useContext(TaskListContext)
 
-  useEffect(
-    () => {
-      onAuthStateChanged(auth, function (user) {
-        if (user) {
-          context.setGlobalUser({ ...user })
-        } else {
-          context.setGlobalUser(null)
-        }
-      })
+
+  onAuthStateChanged(auth, function (user) {
+    if (user) {
+      context.setGlobalUser(user)
     }
-
+  }
   )
-
+  
   return (
     <Container>
-        <Menu />
-        <Routes>
+      <Menu />
+      <Routes>
         <Route path='/' exact element={<Home />} />
         <Route path='/add' exact element={<AddTask />} />
         <Route path='/search' exact element={<SearchTask />} />
         <Route path='/profile' exact element={<Profile />} />
         <Route path='/login' exact element={<Login />} />
         <Route path='/edit' exact element={<EditTask />} />
-        </Routes>
+      </Routes>
     </Container>
 
   )

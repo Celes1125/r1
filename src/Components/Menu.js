@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { useNavigate } from 'react-router-dom';
+import TaskListContext from '../Contexts/TaskListContext'
 import { Link } from 'react-router-dom'
 import { FaUser } from 'react-icons/fa'
 import { AiOutlineSearch, AiOutlineLogout } from 'react-icons/ai'
@@ -28,9 +30,14 @@ const styles = {
 }
 
 const Menu = () => {
+  const context = useContext(TaskListContext)
+  const navigate = useNavigate()
   async function handleSignOut () {
+    
     try {
-      await signOut(auth)
+      await signOut(auth)      
+      await context.setGlobalUser(null)
+      navigate('/')
       console.log('User sign out successfully')
     } catch (error) {
       console.log('ERROR: ', error)
